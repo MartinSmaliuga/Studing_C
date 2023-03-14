@@ -1,0 +1,7 @@
+﻿  main.c
+C:\Users\marti\Documents\Programming\C\Studing_C\working_with_binary_files\main.c(17,36): warning C4020: 'perror': too many actual parameters
+C:\Users\marti\Documents\Programming\C\Studing_C\working_with_binary_files\main.c(22,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\marti\Documents\Programming\C\Studing_C\working_with_binary_files\main.c(82,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\marti\Documents\Programming\C\Studing_C\working_with_binary_files\main.c(60,8): warning C4133: 'initializing': incompatible types - from 'unsigned long *' to 'char *'
+C:\Users\marti\Documents\Programming\C\Studing_C\working_with_binary_files\main.c(86): warning C4716: 'load_struct': must return a value
+  working_with_binary_files.vcxproj -> C:\Users\marti\Documents\Programming\C\Studing_C\working_with_binary_files\x64\Debug\working_with_binary_files.exe
