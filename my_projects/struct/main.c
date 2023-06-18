@@ -13,6 +13,9 @@ int main(void)
 	scanf("%s", N.name);
 	printf("Enter your age: ");
 	scanf("%u", &N.age);
+	person D = N;
+	*D.name = 'J';
 	printf("Name: %s\tAge: %u", N.name, N.age);
+	printf("Name: %s\tAge: %u", D.name, D.age);
 	return 0;
 }

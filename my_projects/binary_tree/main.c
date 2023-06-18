@@ -2,131 +2,110 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct
-{
-	long value;
-	struct node* left;
-	struct node* right;
-}node;
+#define TREESIZE 20
 
-int find(node root, int value)
-{
-	if (root.value == value)
-		return 1;
-	if (root.value > value && root.left != NULL)
-		return find(*(root.left), value);
-	else if (root.right != NULL)
-		return find(*(root.right), value);
-	else
-		return 0;
+typedef struct {
+	long value;
+	struct Node* parent;
+	struct Node* left;
+	struct Node* right;
+}Node;
+
+Node* node_init(long value) {
+	Node* new_node = malloc(sizeof(Node));
+	new_node->value = value;
+	new_node->parent = NULL;
+	new_node->left = NULL;
+	new_node->right = NULL;
+	return new_node;
 }
 
-int add(node root, int value)
-{
-	if (root.value == value)
-		return 0;
-	if (root.value > value)
-	{
-		if (root.left == NULL)
-		{
-			node* leaf = malloc(sizeof(node));
-			(*leaf).value = value;
-			root.left = leaf;
+int add_node(Node *root, Node *leaf) {
+	if (leaf->value < root->value) {
+		if (root->left == NULL) {
+			root->left = leaf;
+			leaf->parent = root;
 			return 1;
 		}
-		else
-			return add(*(root.left), value);
+		else {
+			return add_node(root->left, leaf);
+		}
 	}
-	else if (root.right == NULL)
-	{
-		node* leaf = malloc(sizeof(node));
-		(*leaf).value = value;
-		root.right = leaf;
-		return 1;
+	else if (leaf->value > root->value) {
+		if (root->right == NULL) {
+			root->right = leaf;
+			leaf->parent = root;
+			return 1;
+		}
+		else {
+			return add_node(root->right, leaf);
+		}
 	}
 	else
-		return add(*(root.right), value);
+		return 0;
 }
 
-node* findToRemove(node root, int value)
-{
-	if (root.left != NULL && root.value > value)
-	{
-		node left = *(root.left);
-		if (left.value == value)
-			return &root;
-		else
-			return findToRemove(left, value);
-	}
-	if (root.right != NULL && root.value < value)
-	{
-		node right = *(root.right);
-		if (right.value == value)
-			return &root;
-		else
-			return findToRemove(right, value);
-	}
-	return NULL;
-}
-
-void mergeRightIsNull(node left, node right)
-{
-	left.right = &right;
-}
-void mergeLeftIsNull(node left, node right)
-{
-	right.left = &left;
-}
-
-node merge(node left, node right)
-{
-	node* potentialConnectionPoints[2] = { left.right, right.left };
-	int i = 0;
-	while (i < 2)
-	{
-		if (potentialConnectionPoints[i] == NULL)
-		{
-			*potentialConnectionPoints[i] = right;
-			return left;
+Node* find_node(Node* root, long value) {
+	if (root->value < value) {
+		if (root->right != NULL) {
+			return find_node(root->right, value);
 		}
-		i++;
-		if (potentialConnectionPoints[i] == NULL)
-		{
-			*potentialConnectionPoints[i] = left;
-			return right;
+		else {
+			return NULL;
 		}
-		potentialConnectionPoints[i] = *(potentialConnectionPoints[i])->left;
-		i--;
-		potentialConnectionPoints[i] = *(potentialConnectionPoints[i])->right;
 	}
-}
-
-node remove(node root, int value)
-{
-	if (root.value == value)
-	{
-		root = merge(*(root.left), *(root.right));
+	else if (root->value > value) {
+		if (root->left != NULL) {
+			return find_node(root->left, value);
+		}
+		else {
+			return NULL;
+		}
 	}
 	else
-	{
-		node* preseizable = findToRemove(root, value);
-		if (preseizable != NULL)
-		{
-			if ((*(*preseizable).left).value == value)
-				mergeLeftIsNull(merge((*(*(*preseizable).left).left), (*(*(*preseizable).left).right)), *preseizable);
-			else
-				mergeRightIsNull(*preseizable, merge((*(*(*preseizable).right).left), (*(*(*preseizable).right).right)));
-		}
-	}
-	return root;
+		return root;
 }
 
-int main(void)
-{
-	node root = { rand() % 101, NULL, NULL };
-	for (int i = 0; i < 17; i++)
-	{
-		add(root, rand() % 101);
+int main(void) {
+	Node* leaves[TREESIZE];
+
+	for (int i = 0; i < TREESIZE; i++) {
+		leaves[i] = node_init(1 + rand() % 100);
 	}
-	return 0;
+
+	for (int i = 0; i < TREESIZE; i++) {
+		printf("Leaf %d\nValue: %d\nParent: %p\nLeft: %p\tRight: %p\n\n", i, leaves[i]->value, leaves[i]->parent, leaves[i]->parent, leaves[i]->left, leaves[i]->right);
+	}
+
+	printf("\n");
+
+	for (int i = 1; i < TREESIZE; i++) {
+		printf("Try to add a new leaf...\n");
+		if (add_node(leaves[0], leaves[i])) {
+			printf("Leaf #%d was successfully added to the tree\n\n", i);
+		}
+		else
+			printf("Failed to add a leaf #%d to the tree\n\n", i);
+	}
+	
+	char ch = 'y';
+
+	while (ch == 'y') {
+		long value = 0;
+		printf("\nEnter value to search: ");
+		scanf("%d", &value);
+		while ((getchar()) != '\n');
+
+		Node* result = find_node(leaves[0], value);
+		if (result == NULL)
+			printf("\nCan't find node with such value\n");
+		else {
+			printf("\nNode where founded!\nValue: %d\nParent: %p\nLeft node: %p\tRight node: %p\n", result->value, result->parent, result->left, result->right);
+		}
+
+		printf("\nWrite \'y\' to search another value: ");
+		scanf("%c", &ch);
+		while ((getchar()) != '\n');
+		printf("\n");
+	}
 }

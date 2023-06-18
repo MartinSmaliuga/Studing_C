@@ -1,0 +1,10 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Test.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  main.c
+C:\Users\marti\Documents\Programming\C\Studing_C\my_projects\maxIntFromInput\main.c(8,5): warning C4013: 'memset' undefined; assuming extern returning int
+C:\Users\marti\Documents\Programming\C\Studing_C\my_projects\maxIntFromInput\main.c(43,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+C:\Users\marti\Documents\Programming\C\Studing_C\my_projects\maxIntFromInput\main.c(43,12): message : consider using '%zd' in the format string
+C:\Users\marti\Documents\Programming\C\Studing_C\my_projects\maxIntFromInput\main.c(45,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+C:\Users\marti\Documents\Programming\C\Studing_C\my_projects\maxIntFromInput\main.c(45,12): message : consider using '%zd' in the format string
+C:\Users\marti\Documents\Programming\C\Studing_C\my_projects\maxIntFromInput\main.c(46,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+C:\Users\marti\Documents\Programming\C\Studing_C\my_projects\maxIntFromInput\main.c(46,12): message : consider using '%zd' in the format string
+  Test.vcxproj -> C:\Users\marti\Documents\Programming\C\Studing_C\my_projects\maxIntFromInput\x64\Debug\maxIntFromInput.exe

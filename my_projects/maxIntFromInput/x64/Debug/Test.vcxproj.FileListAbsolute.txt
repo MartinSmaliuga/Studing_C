@@ -1,0 +1,2 @@
+C:\Users\marti\Documents\Programming\C\Studing_C\my_projects\Test\x64\Debug\Test.exe
+C:\Users\marti\Documents\Programming\C\Studing_C\my_projects\maxIntFromInput\x64\Debug\maxIntFromInput.exe
