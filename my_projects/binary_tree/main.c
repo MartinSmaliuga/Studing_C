@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TREESIZE 20
+#define TREESIZE 25
 
 typedef struct {
 	long value;
@@ -67,7 +67,7 @@ Node* find_node(Node* root, long value) {
 }
 
 int main(void) {
-	Node* leaves[TREESIZE];
+	Node* leaves = malloc(sizeof(Node) * TREESIZE);
 
 	for (int i = 0; i < TREESIZE; i++) {
 		leaves[i] = node_init(1 + rand() % 100);
